@@ -118,6 +118,10 @@ p{margin:0}
 .fleet{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px 32px}
 .car{display:flex;flex-direction:column;gap:20px;min-width:0}
 .car.feature{grid-column:1/-1}
+.car{scroll-margin-top:96px}
+.more{display:flex;flex-direction:column;align-items:center;gap:16px;margin-top:64px}
+.more[hidden]{display:none}
+.car[hidden]{display:none}
 .photo{position:relative;aspect-ratio:4/3;max-width:100%;overflow:hidden;background:
   radial-gradient(70% 55% at 50% 100%, rgba(201,154,72,.16), transparent 70%),
   linear-gradient(180deg,#0B1B38,#081429 60%,#050C1C);border:1px solid rgba(201,154,72,.14)}
@@ -299,6 +303,10 @@ footer{background:#040A17;border-top:1px solid rgba(201,154,72,.14)}
         <p>Pick the car that fits the day. Rates depend on dates and mileage, so tap any car to request pricing.</p>
       </div>
       <div class="fleet" id="fleet-grid"></div>
+      <div class="more">
+        <button class="btn btn-ghost" type="button" id="fleet-more">Load more
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M8 3v10M4 9l4 4 4-4"/></svg></button>
+      </div>
     </div>
   </section>
 
@@ -476,13 +484,22 @@ const FLEET = [
     specs:["SUV","5 seats","Generous cargo space"], pos:"50% 60%", photo:"images/rx350.webp" },
   { id:"palisade", make:"Hyundai", model:"Palisade", year:"2026", tag:"Family SUV",
     line:"Three rows, one easy road trip.",
-    specs:["3 rows","Up to 8 seats","SUV"], pos:"50% 58%", photo:"images/palisade.webp" }
+    specs:["3 rows","Up to 8 seats","SUV"], pos:"50% 58%", photo:"images/palisade.webp" },
+  { id:"model3p", make:"Tesla", model:"Model 3 Performance", year:"2025", tag:"Electric performance",
+    line:"Instant torque, quiet cruising, no gas stops.",
+    specs:["Electric","Dual-motor AWD","5 seats"], photo:"" },
+  { id:"modelylr", make:"Tesla", model:"Model Y Long Range", year:"2026", tag:"Electric SUV",
+    line:"Long-range electric SUV with room for the whole crew.",
+    specs:["Electric","SUV","5 seats"], photo:"" }
 ];
+
+/* How many cars show before "Load more" (featured car + this many), and how many each click adds */
+const FIRST_SHOWN = 5, LOAD_STEP = 4;
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const grid = document.getElementById("fleet-grid");
-grid.innerHTML = FLEET.map(c => `
-  <article class="car${c.feature ? " feature" : ""}" id="car-${c.id}">
+grid.innerHTML = FLEET.map((c, i) => `
+  <article class="car${c.feature ? " feature" : ""}" id="car-${c.id}"${i >= FIRST_SHOWN ? " hidden" : ""}>
     <div class="photo">
       ${c.photo
         ? `<img src="${esc(c.photo)}" style="object-position:${esc(c.pos || "50% 50%")}" alt="${esc((c.year ? c.year+" " : "")+c.make+" "+c.model)}" loading="lazy">`
@@ -498,6 +515,31 @@ grid.innerHTML = FLEET.map(c => `
     </div>
     <ul class="specs">${c.specs.map(s => `<li>${esc(s)}</li>`).join("")}</ul>
   </article>`).join("");
+
+/* Load more */
+const moreBtn = document.getElementById("fleet-more");
+function hiddenCars(){ return [...grid.querySelectorAll(".car[hidden]")]; }
+function updateMore(){
+  moreBtn.parentElement.hidden = hiddenCars().length === 0;
+}
+function revealCars(n){
+  const next = hiddenCars().slice(0, n);
+  next.forEach(card => card.hidden = false);
+  updateMore();
+  return next;
+}
+moreBtn.addEventListener("click", () => {
+  const added = revealCars(LOAD_STEP);
+  if (added[0]) { const link = added[0].querySelector(".btn"); link && link.focus({preventScroll:true}); added[0].scrollIntoView({behavior:"smooth", block:"start"}); }
+});
+/* a footer link or shared #car-… link to a car that's still hidden reveals it */
+function revealFromHash(id){
+  const card = id && document.getElementById(id);
+  if (card && card.classList.contains("car") && card.hidden) { revealCars(FLEET.length); requestAnimationFrame(() => card.scrollIntoView({block:"start"})); }
+}
+document.addEventListener("click", e => { const a = e.target.closest('a[href^="#car-"]'); if (a) revealFromHash(a.getAttribute("href").slice(1)); });
+revealFromHash(location.hash.slice(1));
+updateMore();
 
 const label = c => (c.year ? c.year + " " : "") + c.make + " " + c.model;
 const sel = document.getElementById("car");
