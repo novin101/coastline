@@ -204,6 +204,10 @@ input::placeholder,textarea::placeholder{color:#5F6C84}
 .f.bad input,.f.bad select{border-color:#E08A6C}
 .form-foot{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px;margin-top:6px}
 .form-foot small{color:#6B7890;font-size:13px;max-width:42ch}
+.form-foot .btn:disabled{opacity:.6;cursor:progress}
+.form-error{grid-column:1/-1;margin:0;border:1px solid #E08A6C;background:rgba(224,138,108,.08);color:#F3C1AE;padding:16px 18px;font-size:15px}
+.form-error b{font-weight:500;color:#F7D3C5}
+.form-error a{color:var(--gold-hi)}
 .done{grid-column:1/-1;border:1px solid var(--gold);padding:28px;display:flex;flex-direction:column;gap:16px;background:rgba(201,154,72,.06)}
 .done h3{font-size:30px}
 .done p{color:#C5CCDA}
@@ -413,7 +417,8 @@ footer{background:#040A17;border-top:1px solid rgba(201,154,72,.14)}
         </div>
       </div>
 
-      <form id="inq-form" novalidate>
+      <form id="inq-form" action="https://formspree.io/f/xljgywkl" method="POST" novalidate>
+        <div id="hp-wrap" class="hp" hidden aria-hidden="true"><label for="hp">Leave this empty</label><input id="hp" name="_gotcha" tabindex="-1" autocomplete="off"></div>
         <div class="f"><label for="name">Full name</label><input id="name" name="name" autocomplete="name" required><span class="err" id="name-err"></span></div>
         <div class="f"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required><span class="err" id="email-err"></span></div>
         <div class="f"><label for="phone">Phone <span class="opt">optional</span></label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
@@ -429,6 +434,7 @@ footer{background:#040A17;border-top:1px solid rgba(201,154,72,.14)}
           <button class="btn btn-solid" type="submit">Request pricing</button>
           <small>We'll reply by email with your quote.</small>
         </div>
+        <p class="form-error" id="form-error" role="alert" tabindex="-1" hidden></p>
       </form>
     </div>
   </section>
@@ -542,43 +548,80 @@ function check(id){
 }
 Object.keys(FIELDS).forEach(id => document.getElementById(id).addEventListener("blur", () => { if (document.getElementById(id).value) check(id); }));
 
-form.addEventListener("submit", e => {
+const FORMSPREE = "https://formspree.io/f/xljgywkl";
+const formError = document.getElementById("form-error");
+const submitBtn = form.querySelector('button[type="submit"]');
+const fields = () => [...form.children].filter(ch => !ch.classList.contains("done"));
+
+form.addEventListener("submit", async e => {
   e.preventDefault();
+  formError.hidden = true;
   const bad = Object.keys(FIELDS).filter(id => !check(id));
   if (bad.length) { document.getElementById(bad[0]).focus(); return; }
   const v = id => document.getElementById(id).value.trim();
   const car = FLEET.find(c => c.id === v("car"));
+  const vehicle = car ? label(car) : "Not sure yet, please recommend";
   const fmt = d => new Date(d + "T12:00").toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric",year:"numeric"});
-  const body = [
-    "Hi Coastline Exotics,", "",
-    "I'd like pricing for the following rental:", "",
-    "Vehicle: " + (car ? label(car) : "Not sure yet, please recommend"),
-    "Dates: " + fmt(v("start")) + " to " + fmt(v("end")),
-    v("where") ? "Pickup location: " + v("where") : null,
-    v("occasion") ? "Occasion: " + v("occasion") : null,
-    v("msg") ? "\nNotes: " + v("msg") : null,
-    "", "Name: " + v("name"), "Email: " + v("email"), v("phone") ? "Phone: " + v("phone") : null
-  ].filter(x => x !== null).join("\n");
   const short = d => new Date(d + "T12:00").toLocaleDateString("en-US",{month:"short",day:"numeric"});
   const subject = "Rental inquiry: " + (car ? car.make + " " + car.model : "help me choose") + ", " + short(v("start")) + " to " + short(v("end"));
-  const mailto = "mailto:coastlineexoticsca@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
 
+  const payload = {
+    _subject: subject,
+    name: v("name"),
+    email: v("email"),
+    phone: v("phone") || "Not provided",
+    vehicle,
+    pickup_date: fmt(v("start")),
+    return_date: fmt(v("end")),
+    pickup_location: v("where") || "Not provided",
+    occasion: v("occasion") || "Not provided",
+    message: v("msg") || "None",
+    _gotcha: document.getElementById("hp").value
+  };
+
+  submitBtn.disabled = true;
+  const btnText = submitBtn.textContent;
+  submitBtn.textContent = "Sending…";
+  try {
+    const res = await fetch(FORMSPREE, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      const msg = (data.errors || []).map(x => x.message).join(" ") || "The server didn't accept the inquiry.";
+      throw new Error(msg);
+    }
+    showSent(v("name").split(" ")[0], vehicle, v("email"));
+  } catch (err) {
+    const body = Object.entries(payload).filter(([k]) => !k.startsWith("_")).map(([k, val]) => k.replace("_"," ") + ": " + val).join("\n");
+    const mailto = "mailto:coastlineexoticsca@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    formError.innerHTML = `<b>Your inquiry didn't go through.</b> ${err && err.message && !/fetch|network/i.test(err.message) ? "Check your details and try again (" + esc(err.message.replace(/\.$/,"")) + "), " : "Check your connection and try again, "}or email us directly at <a href="${mailto}">coastlineexoticsca@gmail.com</a>.`;
+    formError.hidden = false;
+    formError.focus();
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = btnText;
+  }
+});
+
+function showSent(first, vehicle, email){
   const box = document.createElement("div");
   box.className = "done"; box.setAttribute("role","status"); box.tabIndex = -1;
-  box.innerHTML = `<h3>Your inquiry is <em>ready to send.</em></h3>
-    <p>Open it in your email app, or copy it and send it to <b style="font-weight:500">coastlineexoticsca@gmail.com</b>.</p>
-    <pre id="inq-text"></pre>
-    <div class="row">
-      <a class="btn btn-solid" href="${mailto}">Open in email</a>
-      <button class="btn btn-ghost" type="button" data-copy="" data-target="inq-text" id="copy-inq">Copy inquiry</button>
-      <button class="btn btn-ghost" type="button" id="edit-inq">Edit details</button>
-    </div>`;
-  box.querySelector("#inq-text").textContent = "To: coastlineexoticsca@gmail.com\nSubject: " + subject + "\n\n" + body;
-  box.querySelector("#copy-inq").dataset.copy = "Subject: " + subject + "\n\n" + body;
-  [...form.children].forEach(ch => ch.hidden = true);
+  box.innerHTML = `<h3>Inquiry <em>sent.</em></h3>
+    <p></p>
+    <div class="row"><button class="btn btn-ghost" type="button" id="again-inq">Send another inquiry</button></div>`;
+  box.querySelector("p").textContent = `Thanks${first ? ", " + first : ""}. We received your request for the ${vehicle} and will email ${email} with pricing and availability.`;
+  fields().forEach(ch => ch.hidden = true);
   form.appendChild(box); box.focus();
-  box.querySelector("#edit-inq").addEventListener("click", () => { box.remove(); [...form.children].forEach(ch => ch.hidden = false); document.getElementById("name").focus(); });
-});
+  box.querySelector("#again-inq").addEventListener("click", () => {
+    box.remove(); form.reset(); fields().forEach(ch => ch.hidden = false);
+    document.getElementById("hp-wrap").hidden = true;
+    formError.hidden = true;
+    document.getElementById("name").focus();
+  });
+}
 
 /* hero: slow shimmer on the water below the horizon */
 (function(){
