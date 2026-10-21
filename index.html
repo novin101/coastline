@@ -4,10 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Coastline Exotics | Exotic &amp; Luxury Car Rental in Los Angeles and Orange County</title>
-<link rel="icon" type="image/webp" href="images/emblem.webp">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:title" content="Coastline Exotics Car Rental">
 <meta property="og:description" content="Exotic, luxury and family car rental across Los Angeles and Orange County. Request pricing for your dates.">
-<meta property="og:image" content="https://coastlinexotics.com/images/huracan.webp">
+<meta property="og:image" content="https://coastlinexotics.com/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta property="og:url" content="https://coastlinexotics.com/">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://coastlinexotics.com/">
@@ -92,7 +96,7 @@ p{margin:0}
 @media (max-width:760px){.hero-foot{grid-template-columns:1fr}.hero h1 .l2{padding-left:0}}
 .rise{animation:rise 1s cubic-bezier(.2,.7,.2,1) both}
 .rise.d2{animation-delay:.12s}.rise.d3{animation-delay:.24s}
-@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes rise{from{transform:translateY(14px)}to{transform:none}}
 
 /* pillars */
 .pillars{background:var(--night)}
@@ -183,9 +187,9 @@ p{margin:0}
 .contact{margin-top:34px;border-top:1px solid var(--line);padding-top:22px;display:flex;flex-direction:column;gap:10px}
 .contact .eyebrow{font-size:10px}
 .mail{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
-.mail a{font-family:var(--serif);font-size:24px;text-decoration:none;word-break:break-all;user-select:all}
+.mail a{display:inline-flex;align-items:center;min-height:44px;font-family:var(--serif);font-size:24px;text-decoration:none;word-break:break-all;user-select:all}
 .mail a:hover{color:var(--gold-hi)}
-.copy{background:none;border:1px solid rgba(236,232,223,.25);color:var(--mute);font:500 10px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;padding:9px 12px;cursor:pointer;min-height:36px}
+.copy{background:none;border:1px solid rgba(236,232,223,.25);color:var(--mute);font:500 10px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;padding:9px 14px;cursor:pointer;min-height:44px}
 .copy:hover{color:var(--gold-hi);border-color:var(--gold)}
 form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 20px}
 .f{display:flex;flex-direction:column;gap:8px;min-width:0}
@@ -214,6 +218,9 @@ footer{background:#040A17;border-top:1px solid rgba(201,154,72,.14)}
 .foot h4{margin:0 0 16px;font-size:10px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
 .foot ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
 .foot li,.foot li a{font-size:14px;color:var(--mute);text-decoration:none}
+.foot li a{display:inline-flex;align-items:center;min-height:44px}
+.foot ul{gap:0!important}
+.foot li:not(:has(a)){padding-block:12px}
 .foot li a:hover{color:var(--ink)}
 .foot .about p{color:var(--mute);font-size:14px;margin-top:18px;max-width:34ch}
 .legal{border-top:1px solid rgba(236,232,223,.08);padding-block:22px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:12px;color:#6B7890}
@@ -552,7 +559,8 @@ form.addEventListener("submit", e => {
     v("msg") ? "\nNotes: " + v("msg") : null,
     "", "Name: " + v("name"), "Email: " + v("email"), v("phone") ? "Phone: " + v("phone") : null
   ].filter(x => x !== null).join("\n");
-  const subject = "Rental inquiry: " + (car ? car.make + " " + car.model : "help me choose") + ", " + v("start");
+  const short = d => new Date(d + "T12:00").toLocaleDateString("en-US",{month:"short",day:"numeric"});
+  const subject = "Rental inquiry: " + (car ? car.make + " " + car.model : "help me choose") + ", " + short(v("start")) + " to " + short(v("end"));
   const mailto = "mailto:coastlineexoticsca@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
 
   const box = document.createElement("div");
