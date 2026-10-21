@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Coastline Exotics | Exotic &amp; Luxury Car Rental in Los Angeles and Orange County</title>
+<link rel="icon" type="image/webp" href="images/emblem.webp">
+<meta property="og:title" content="Coastline Exotics Car Rental">
+<meta property="og:description" content="Exotic, luxury and family car rental across Los Angeles and Orange County. Request pricing for your dates.">
+<meta property="og:image" content="images/huracan.webp">
+<meta name="theme-color" content="#060E1F">
+<meta name="description" content="Coastline Exotics Car Rental — a hand-picked fleet from a Lamborghini Huracán to a Hyundai Palisade, serving Los Angeles and Orange County.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap">
+<style>
+html,body{margin:0}
+/* Layout: one dark coastal night — full-bleed bands, left-aligned editorial headlines, gold hairlines; one ivory band where the full logo lives. */
+:root{
+  color-scheme: dark;
+  --night:#060E1F;        /* page ground: navy pushed toward black */
+  --deep:#0A1A35;         /* raised bands */
+  --navy:#0A2648;         /* logo navy */
+  --line:rgba(201,154,72,.22);
+  --gold:#C99A48;         /* logo ring + rims */
+  --gold-hi:#E2BE78;
+  --sea:#2BB5E8;          /* wave aqua, used sparingly */
+  --ivory:#F6F3EC;
+  --ink:#ECE8DF;          /* text on night */
+  --mute:#9AA6BC;
+  --ink-dark:#0A2648;
+  --serif:"Cormorant", "Cormorant Garamond", Garamond, "Times New Roman", serif;
+  --sans:"Jost", "Futura", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --gutter-l:max(20px, env(safe-area-inset-left, 0px));
+  --gutter-r:max(20px, env(safe-area-inset-right, 0px));
+  --max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--night);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;font-weight:300;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--night)}
+a{color:inherit}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--gold-hi);outline-offset:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+.eyebrow{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;letter-spacing:-.005em}
+h2{font-size:clamp(36px,5vw,58px);line-height:1.05}
+em{font-style:italic;color:var(--gold-hi)}
+p{margin:0}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:48px;padding:0 26px;font:500 11px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;text-decoration:none;border:1px solid var(--gold);cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.btn-solid{background:var(--gold);color:var(--night)}
+.btn-solid:hover{background:var(--gold-hi);border-color:var(--gold-hi)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:rgba(236,232,223,.35)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold-hi)}
+.btn svg{width:14px;height:14px}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(6,14,31,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(201,154,72,.14)}
+.top .wrap{display:flex;align-items:center;gap:28px;min-height:76px}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;margin-right:auto}
+.brand img{width:48px;height:48px;border-radius:50%;box-shadow:0 0 0 1px var(--gold)}
+.brand span{display:flex;flex-direction:column;line-height:1}
+.brand b{font-family:var(--serif);font-weight:500;font-size:22px;letter-spacing:.06em;text-transform:uppercase}
+.brand small{font-size:9px;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);margin-top:6px}
+.nav{display:flex;gap:30px}
+.nav a{font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;text-decoration:none;color:var(--mute);padding:8px 0;transition:color .2s}
+.nav a:hover{color:var(--ink)}
+@media (max-width:900px){.nav{display:none}}
+@media (max-width:440px){.brand small{display:none}.brand b{font-size:18px}.top .btn{padding:0 16px}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid rgba(201,154,72,.14)}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%}
+.hero .sky{position:absolute;inset:0;background:
+  radial-gradient(60% 40% at 72% 62%, rgba(201,154,72,.30), transparent 70%),
+  radial-gradient(50% 35% at 30% 70%, rgba(43,181,232,.10), transparent 70%),
+  linear-gradient(180deg,#040A17 0%,#0A1A35 46%,#14284A 60%,#081631 61%,#050C1C 100%)}
+.hero .horizon{position:absolute;left:0;right:0;top:61%;height:1px;background:linear-gradient(90deg,transparent,rgba(226,190,120,.7) 55%,transparent)}
+.hero .wrap{position:relative;padding-block:clamp(72px,12vw,150px) clamp(64px,9vw,110px)}
+.hero h1{font-size:clamp(56px,10vw,132px);line-height:.92;margin-top:26px}
+.hero h1 .l2{display:block;padding-left:.5em}
+.hero-foot{display:grid;grid-template-columns:minmax(0,420px) auto;gap:32px 48px;align-items:end;margin-top:clamp(40px,6vw,72px)}
+.hero-foot p{color:#C5CCDA;font-size:16px;max-width:42ch}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px}
+@media (max-width:760px){.hero-foot{grid-template-columns:1fr}.hero h1 .l2{padding-left:0}}
+.rise{animation:rise 1s cubic-bezier(.2,.7,.2,1) both}
+.rise.d2{animation-delay:.12s}.rise.d3{animation-delay:.24s}
+@keyframes rise{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* pillars */
+.pillars{background:var(--night)}
+.pillars .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;padding-block:80px}
+.pillar{border-top:1px solid var(--line);padding-top:26px}
+.pillar svg{width:26px;height:26px;color:var(--gold);margin-bottom:18px}
+.pillar h3{font-size:26px;margin-bottom:10px}
+.pillar p{color:var(--mute);font-size:15px}
+@media (max-width:760px){.pillars .wrap{grid-template-columns:1fr;gap:28px;padding-block:56px}}
+
+/* section heads */
+.band{padding-block:clamp(72px,9vw,120px)}
+.band-deep{background:var(--deep)}
+.head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px 40px;margin-bottom:clamp(40px,5vw,64px)}
+.head .eyebrow{display:block;margin-bottom:18px}
+.head p{color:var(--mute);max-width:40ch}
+
+/* fleet */
+.fleet{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px 32px}
+.car{display:flex;flex-direction:column;gap:20px;min-width:0}
+.car.feature{grid-column:1/-1}
+.photo{position:relative;aspect-ratio:4/3;max-width:100%;overflow:hidden;background:
+  radial-gradient(70% 55% at 50% 100%, rgba(201,154,72,.16), transparent 70%),
+  linear-gradient(180deg,#0B1B38,#081429 60%,#050C1C);border:1px solid rgba(201,154,72,.14)}
+.car.feature .photo{aspect-ratio:21/9}
+.photo img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.car:hover .photo img{transform:scale(1.03)}
+.photo .ghost{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px}
+.photo .ghost b{font-family:var(--serif);font-weight:400;font-style:italic;font-size:clamp(44px,8vw,110px);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(226,190,120,.45)}
+.photo .ghost span{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--mute)}
+.photo .floor{position:absolute;left:8%;right:8%;bottom:22%;height:1px;background:linear-gradient(90deg,transparent,rgba(226,190,120,.35),transparent)}
+.tag{position:absolute;top:16px;left:16px;font-size:10px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;background:rgba(6,14,31,.78);color:var(--gold-hi);padding:8px 12px;border:1px solid rgba(201,154,72,.3)}
+.car-meta{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 24px;align-items:end}
+.car-meta .make{font-size:11px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--mute)}
+.car-meta h3{font-size:clamp(30px,3.4vw,40px);line-height:1.05}
+.car-meta h3 .yr{font-family:var(--sans);font-size:13px;letter-spacing:.14em;color:var(--gold);vertical-align:middle;margin-left:10px}
+.car-meta .line{grid-column:1/2;color:#BFC7D6;font-family:var(--serif);font-style:italic;font-size:19px}
+.car-meta .btn{grid-row:1/4;grid-column:2;align-self:end}
+.specs{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.specs li{font-size:12px;letter-spacing:.06em;color:var(--ink);border:1px solid rgba(236,232,223,.14);padding:6px 12px}
+@media (max-width:760px){.fleet{grid-template-columns:1fr;gap:48px}.car.feature .photo{aspect-ratio:4/3}.car-meta{grid-template-columns:1fr}.car-meta .btn{grid-row:auto;grid-column:1;justify-self:start;margin-top:8px}}
+
+/* occasions */
+.occ{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.occ article{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:34px 28px 38px;display:flex;flex-direction:column;gap:14px;transition:background .3s}
+.occ article:hover{background:rgba(10,38,72,.45)}
+.occ svg{width:28px;height:28px;color:var(--gold)}
+.occ h3{font-size:27px}
+.occ p{color:var(--mute);font-size:15px}
+.occ .fit{margin-top:auto;padding-top:12px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--sea)}
+@media (max-width:980px){.occ{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.occ{grid-template-columns:1fr}}
+
+/* area */
+.area{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px}
+.area h3{font-size:32px;margin-bottom:6px}
+.area .sub{color:var(--mute);font-size:14px;margin-bottom:22px}
+.cities{list-style:none;margin:0;padding:0;columns:2;column-gap:28px}
+.cities li{break-inside:avoid;padding:11px 0;border-bottom:1px solid rgba(236,232,223,.08);font-size:15px;display:flex;align-items:center;gap:12px}
+.cities li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold);flex:none}
+.cities li.air::before{background:var(--sea)}
+.area-note{margin-top:36px;color:var(--mute);font-size:14px;display:flex;gap:18px;flex-wrap:wrap}
+.area-note span{display:inline-flex;align-items:center;gap:8px}
+.area-note i{width:5px;height:5px;border-radius:50%;display:inline-block}
+@media (max-width:760px){.area{grid-template-columns:1fr;gap:44px}}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;counter-reset:s}
+.step{border-top:1px solid var(--line);padding-top:24px}
+.step .n{font-family:var(--serif);font-size:56px;line-height:1;color:var(--gold);font-variant-numeric:lining-nums}
+.step h3{font-size:26px;margin:14px 0 8px}
+.step p{color:var(--mute);font-size:15px}
+@media (max-width:760px){.steps{grid-template-columns:1fr;gap:28px}}
+
+/* ivory brand band */
+.ivory{background:var(--ivory);color:var(--ink-dark)}
+.ivory .wrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:48px;align-items:center;padding-block:clamp(64px,8vw,104px)}
+.ivory img{width:100%;max-width:440px;margin:0 auto;mix-blend-mode:multiply}
+.ivory .eyebrow{color:#9A7230}
+.ivory blockquote{margin:18px 0 0;font-family:var(--serif);font-size:clamp(30px,3.6vw,46px);line-height:1.15;text-wrap:balance}
+.ivory blockquote em{color:#9A7230}
+.ivory p{margin-top:22px;color:#3B4A63;max-width:46ch}
+@media (max-width:760px){.ivory .wrap{grid-template-columns:1fr}.ivory img{max-width:300px}}
+
+/* inquiry */
+.inq{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:56px}
+.inq-side p{color:var(--mute);margin-top:20px;max-width:36ch}
+.contact{margin-top:34px;border-top:1px solid var(--line);padding-top:22px;display:flex;flex-direction:column;gap:10px}
+.contact .eyebrow{font-size:10px}
+.mail{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.mail a{font-family:var(--serif);font-size:24px;text-decoration:none;word-break:break-all;user-select:all}
+.mail a:hover{color:var(--gold-hi)}
+.copy{background:none;border:1px solid rgba(236,232,223,.25);color:var(--mute);font:500 10px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;padding:9px 12px;cursor:pointer;min-height:36px}
+.copy:hover{color:var(--gold-hi);border-color:var(--gold)}
+form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 20px}
+.f{display:flex;flex-direction:column;gap:8px;min-width:0}
+.f.full{grid-column:1/-1}
+label{font-size:10px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--mute)}
+label .opt{letter-spacing:.1em;text-transform:none;color:#6B7890;margin-left:6px}
+input,select,textarea{width:100%;background:rgba(10,26,53,.7);border:1px solid rgba(236,232,223,.16);color:var(--ink);font:300 16px/1.4 var(--sans);padding:13px 14px;border-radius:0;min-height:48px;transition:border-color .2s}
+textarea{min-height:110px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+input::placeholder,textarea::placeholder{color:#5F6C84}
+.err{font-size:12px;color:#F0A58C;min-height:0}
+.f.bad input,.f.bad select{border-color:#E08A6C}
+.form-foot{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:16px 24px;margin-top:6px}
+.form-foot small{color:#6B7890;font-size:13px;max-width:42ch}
+.done{grid-column:1/-1;border:1px solid var(--gold);padding:28px;display:flex;flex-direction:column;gap:16px;background:rgba(201,154,72,.06)}
+.done h3{font-size:30px}
+.done p{color:#C5CCDA}
+.done pre{margin:0;white-space:pre-wrap;font:300 14px/1.6 var(--sans);color:var(--ink);background:rgba(6,14,31,.6);padding:16px;border:1px solid rgba(236,232,223,.1);max-height:260px;overflow:auto}
+.done .row{display:flex;flex-wrap:wrap;gap:12px}
+@media (max-width:860px){.inq{grid-template-columns:1fr;gap:40px}}
+@media (max-width:520px){form{grid-template-columns:1fr}}
+
+/* footer */
+footer{background:#040A17;border-top:1px solid rgba(201,154,72,.14)}
+.foot{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:40px;padding-block:64px 40px}
+.foot h4{margin:0 0 16px;font-size:10px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.foot ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.foot li,.foot li a{font-size:14px;color:var(--mute);text-decoration:none}
+.foot li a:hover{color:var(--ink)}
+.foot .about p{color:var(--mute);font-size:14px;margin-top:18px;max-width:34ch}
+.legal{border-top:1px solid rgba(236,232,223,.08);padding-block:22px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:12px;color:#6B7890}
+@media (max-width:860px){.foot{grid-template-columns:repeat(2,minmax(0,1fr))}.foot .about{grid-column:1/-1}}
+@media (max-width:440px){.foot{grid-template-columns:1fr}}
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Coastline Exotics, back to top">
+      <img src="images/emblem.webp" alt="" width="48" height="48">
+      <span><b>Coastline Exotics</b><small>Car Rental</small></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#fleet">Fleet</a>
+      <a href="#occasions">Occasions</a>
+      <a href="#area">Service area</a>
+      <a href="#how">How it works</a>
+    </nav>
+    <a class="btn btn-solid" href="#inquire">Inquire</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="sky"></div>
+    <canvas id="sea" aria-hidden="true"></canvas>
+    <div class="horizon"></div>
+    <div class="wrap">
+      <span class="eyebrow rise">Los Angeles &nbsp;·&nbsp; Orange County</span>
+      <h1 id="hero-title" class="rise d2">The coast,<span class="l2"><em>reserved</em> for you.</span></h1>
+      <div class="hero-foot rise d3">
+        <p>A hand-picked fleet, from a V10 Lamborghini Huracán to a three-row Hyundai Palisade. Tell us your dates and we'll send you pricing for the car you want.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-solid" href="#fleet">View the fleet
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          <a class="btn btn-ghost" href="#inquire">Request pricing</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pillars" aria-label="Why Coastline Exotics">
+    <div class="wrap">
+      <div class="pillar">
+        <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M14 3l3.2 6.6 7.3 1-5.3 5.1 1.3 7.2L14 19.5 7.5 22.9l1.3-7.2L3.5 10.6l7.3-1z"/></svg>
+        <h3>Hand-picked fleet</h3>
+        <p>Every car is one we'd drive ourselves, from weekend exotics to three-row family SUVs. Each one is detailed and checked before every rental.</p>
+      </div>
+      <div class="pillar">
+        <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M14 25s8-7.6 8-13.5A8 8 0 0 0 6 11.5C6 17.4 14 25 14 25z"/><circle cx="14" cy="11.5" r="3"/></svg>
+        <h3>LA to Orange County</h3>
+        <p>From Malibu to Dana Point. Ask about pickup at your home, hotel, LAX or John Wayne Airport.</p>
+      </div>
+      <div class="pillar">
+        <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="4" y="7" width="20" height="14"/><path d="M4 8l10 7 10-7"/></svg>
+        <h3>Pricing by inquiry</h3>
+        <p>Every quote is built around your dates, mileage and location. Send one inquiry and get one clear number back.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-deep" id="fleet" aria-labelledby="fleet-title">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <span class="eyebrow">The collection</span>
+          <h2 id="fleet-title">Chosen for<br><em>the coastline.</em></h2>
+        </div>
+        <p>Pick the car that fits the day. Rates depend on dates and mileage, so tap any car to request pricing.</p>
+      </div>
+      <div class="fleet" id="fleet-grid"></div>
+    </div>
+  </section>
+
+  <section class="band" id="occasions" aria-labelledby="occ-title">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <span class="eyebrow">Occasions</span>
+          <h2 id="occ-title">How will you<br><em>drive the coast?</em></h2>
+        </div>
+      </div>
+      <div class="occ">
+        <article>
+          <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M2 18c3 0 3-2 6-2s3 2 6 2 3-2 6-2 3 2 6 2M2 23c3 0 3-2 6-2s3 2 6 2 3-2 6-2 3 2 6 2"/><circle cx="20" cy="8" r="3.5"/></svg>
+          <h3>Weekend on PCH</h3>
+          <p>Malibu at sunrise, Laguna by lunch. The drive is the plan.</p>
+          <span class="fit">Huracán · GLA 35</span>
+        </article>
+        <article>
+          <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="10" cy="15" r="6"/><circle cx="18" cy="15" r="6"/><path d="M10 9l4-5 4 5"/></svg>
+          <h3>Weddings &amp; events</h3>
+          <p>Arrive in something worth photographing, or keep the wedding party together in comfort.</p>
+          <span class="fit">Huracán · ES 350 · Palisade</span>
+        </article>
+        <article>
+          <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 16l22-7-3 9-8 1-4 5-1-6z"/></svg>
+          <h3>Business &amp; airport</h3>
+          <p>Meetings in Irvine or Century City, flights from LAX or John Wayne. Quiet, polished, on time.</p>
+          <span class="fit">ES 350 · RX 350</span>
+        </article>
+        <article>
+          <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="19" cy="8" r="3"/><path d="M3 22c0-4 2.7-7 6-7s6 3 6 7M13 22c0-4 2.7-7 6-7s6 3 6 7"/></svg>
+          <h3>Family trips</h3>
+          <p>Disneyland, the beach or a drive to the desert, with three rows and room for the luggage.</p>
+          <span class="fit">Palisade · RX 350</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-deep" id="area" aria-labelledby="area-title">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <span class="eyebrow">Service area</span>
+          <h2 id="area-title">From Malibu<br><em>to Dana Point.</em></h2>
+        </div>
+        <p>We serve Los Angeles and Orange County. Don't see your city? Ask, and we'll let you know.</p>
+      </div>
+      <div class="area">
+        <div>
+          <h3>Los Angeles</h3>
+          <p class="sub">County</p>
+          <ul class="cities">
+            <li>Beverly Hills</li><li>Santa Monica</li><li>Malibu</li><li>West Hollywood</li>
+            <li>Century City</li><li>Marina del Rey</li><li>Downtown LA</li><li>Pasadena</li>
+            <li>Long Beach</li><li class="air">LAX</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Orange County</h3>
+          <p class="sub">County</p>
+          <ul class="cities">
+            <li>Newport Beach</li><li>Laguna Beach</li><li>Irvine</li><li>Huntington Beach</li>
+            <li>Dana Point</li><li>Costa Mesa</li><li>Mission Viejo</li><li>Rancho Santa Margarita</li>
+            <li>Anaheim</li><li class="air">John Wayne (SNA)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="area-note">
+        <span><i style="background:var(--gold)"></i>City</span>
+        <span><i style="background:var(--sea)"></i>Airport</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <span class="eyebrow">How it works</span>
+          <h2 id="how-title">Three steps<br><em>to the keys.</em></h2>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step"><span class="n">01</span><h3>Send an inquiry</h3><p>Pick a car, your dates and where you'd like it. Add anything special about the trip.</p></div>
+        <div class="step"><span class="n">02</span><h3>Get your quote</h3><p>We reply with pricing, availability and what we'll need from you, such as license and insurance details.</p></div>
+        <div class="step"><span class="n">03</span><h3>Take the keys</h3><p>Confirm your booking, meet us at the agreed spot, and enjoy the drive.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ivory" aria-label="About Coastline Exotics">
+    <div class="wrap">
+      <img src="images/logo_full.webp" alt="Coastline Exotics Car Rental logo" width="700" height="618">
+      <div>
+        <span class="eyebrow">Coastline Exotics</span>
+        <blockquote>Some roads you drive to get somewhere. <em>Pacific Coast Highway</em> is the somewhere.</blockquote>
+        <p>We're a Southern California rental company built around the stretch of coast between Malibu and Dana Point. Every car in the fleet is chosen for that drive.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band-deep" id="inquire" aria-labelledby="inq-title">
+    <div class="wrap inq">
+      <div class="inq-side">
+        <span class="eyebrow">Inquire</span>
+        <h2 id="inq-title" style="margin-top:18px">Your drive starts<br><em>with one email.</em></h2>
+        <p>Tell us which car and when. We'll reply with pricing and availability.</p>
+        <div class="contact">
+          <span class="eyebrow">Email</span>
+          <div class="mail">
+            <a href="mailto:coastlineexoticsca@gmail.com">coastlineexoticsca@gmail.com</a>
+            <button class="copy" type="button" data-copy="coastlineexoticsca@gmail.com">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <form id="inq-form" novalidate>
+        <div class="f"><label for="name">Full name</label><input id="name" name="name" autocomplete="name" required><span class="err" id="name-err"></span></div>
+        <div class="f"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required><span class="err" id="email-err"></span></div>
+        <div class="f"><label for="phone">Phone <span class="opt">optional</span></label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
+        <div class="f"><label for="car">Vehicle</label>
+          <select id="car" name="car" required><option value="">Choose a car</option></select><span class="err" id="car-err"></span></div>
+        <div class="f"><label for="start">Pickup date</label><input id="start" name="start" type="date" required><span class="err" id="start-err"></span></div>
+        <div class="f"><label for="end">Return date</label><input id="end" name="end" type="date" required><span class="err" id="end-err"></span></div>
+        <div class="f"><label for="where">Pickup location</label><input id="where" name="where" placeholder="City, hotel or airport"></div>
+        <div class="f"><label for="occasion">Occasion <span class="opt">optional</span></label>
+          <select id="occasion" name="occasion"><option value="">Select</option><option>Weekend drive</option><option>Wedding or event</option><option>Business</option><option>Family trip</option><option>Other</option></select></div>
+        <div class="f full"><label for="msg">Anything else <span class="opt">optional</span></label><textarea id="msg" name="msg" placeholder="Number of passengers, special requests, questions"></textarea></div>
+        <div class="form-foot">
+          <button class="btn btn-solid" type="submit">Request pricing</button>
+          <small>We'll reply by email with your quote.</small>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div class="about">
+      <a class="brand" href="#top" aria-label="Coastline Exotics, back to top">
+        <img src="images/emblem.webp" alt="" width="48" height="48" loading="lazy">
+        <span><b>Coastline Exotics</b><small>Car Rental</small></span>
+      </a>
+      <p>Exotic, luxury and family car rental across Los Angeles and Orange County, California.</p>
+    </div>
+    <div><h4>Fleet</h4><ul id="foot-fleet"></ul></div>
+    <div><h4>Explore</h4><ul>
+      <li><a href="#occasions">Occasions</a></li><li><a href="#area">Service area</a></li><li><a href="#how">How it works</a></li><li><a href="#inquire">Request pricing</a></li></ul></div>
+    <div><h4>Contact</h4><ul>
+      <li><a href="mailto:coastlineexoticsca@gmail.com" style="word-break:break-all">coastlineexoticsca@gmail.com</a></li>
+      <li>Los Angeles &amp; Orange County, CA</li></ul></div>
+  </div>
+  <div class="wrap legal"><span>© 2026 Coastline Exotics Car Rental. All rights reserved.</span><span>Los Angeles · Orange County</span></div>
+</footer>
+
+<script>
+/* ---------- Fleet data: add a photo by setting `photo` to an image URL ---------- */
+const FLEET = [
+  { id:"huracan", make:"Lamborghini", model:"Huracán", year:"2021", tag:"Exotic", feature:true,
+    line:"A naturally aspirated V10, and nothing else sounds like it.",
+    specs:["V10","2 seats","Coupe"], pos:"50% 54%", photo:"images/huracan.webp" },
+  { id:"gla35", make:"Mercedes-AMG", model:"GLA 35", year:"", tag:"Performance SUV",
+    line:"AMG power in a compact SUV.",
+    specs:["Turbo 4-cylinder","4MATIC AWD","5 seats"], pos:"50% 58%", photo:"images/gla35.webp" },
+  { id:"es350", make:"Lexus", model:"ES 350", year:"2025", tag:"Luxury sedan",
+    line:"Quiet, smooth, made for the 405.",
+    specs:["V6","Sedan","5 seats"], pos:"50% 56%", photo:"images/es350.webp" },
+  { id:"rx350", make:"Lexus", model:"RX 350", year:"", tag:"Luxury SUV",
+    line:"Room for the luggage, comfort for the drive.",
+    specs:["SUV","5 seats","Generous cargo space"], pos:"50% 60%", photo:"images/rx350.webp" },
+  { id:"palisade", make:"Hyundai", model:"Palisade", year:"2026", tag:"Family SUV",
+    line:"Three rows, one easy road trip.",
+    specs:["3 rows","Up to 8 seats","SUV"], pos:"50% 58%", photo:"images/palisade.webp" }
+];
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const grid = document.getElementById("fleet-grid");
+grid.innerHTML = FLEET.map(c => `
+  <article class="car${c.feature ? " feature" : ""}" id="car-${c.id}">
+    <div class="photo">
+      ${c.photo
+        ? `<img src="${esc(c.photo)}" style="object-position:${esc(c.pos || "50% 50%")}" alt="${esc((c.year ? c.year+" " : "")+c.make+" "+c.model)}" loading="lazy">`
+        : `<div class="floor"></div><div class="ghost" role="img" aria-label="Photo of the ${esc(c.make+" "+c.model)} coming soon"><b>${esc(c.model)}</b><span>Photo coming soon</span></div>`}
+      <span class="tag">${esc(c.tag)}</span>
+    </div>
+    <div class="car-meta">
+      <span class="make">${esc(c.make)}</span>
+      <h3>${esc(c.model)}${c.year ? `<span class="yr">${esc(c.year)}</span>` : ""}</h3>
+      <p class="line">${esc(c.line)}</p>
+      <a class="btn btn-ghost" href="#inquire" data-pick="${c.id}">Request pricing
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+    </div>
+    <ul class="specs">${c.specs.map(s => `<li>${esc(s)}</li>`).join("")}</ul>
+  </article>`).join("");
+
+const label = c => (c.year ? c.year + " " : "") + c.make + " " + c.model;
+const sel = document.getElementById("car");
+FLEET.forEach(c => { const o = document.createElement("option"); o.value = c.id; o.textContent = label(c); sel.appendChild(o); });
+const nf = document.createElement("option"); nf.value = "unsure"; nf.textContent = "Not sure yet, help me choose"; sel.appendChild(nf);
+document.getElementById("foot-fleet").innerHTML = FLEET.map(c => `<li><a href="#car-${c.id}">${esc(c.make+" "+c.model)}</a></li>`).join("");
+
+document.addEventListener("click", e => {
+  const p = e.target.closest("[data-pick]");
+  if (p) { sel.value = p.dataset.pick; sel.closest(".f").classList.remove("bad"); document.getElementById("car-err").textContent = ""; }
+  const cp = e.target.closest("[data-copy]");
+  if (cp) copyText(cp.dataset.copy, cp);
+});
+
+function copyText(text, btn){
+  const done = () => { const t = btn.textContent; btn.textContent = "Copied"; setTimeout(() => btn.textContent = t, 1600); };
+  try {
+    navigator.clipboard.writeText(text).then(done, () => fallback());
+  } catch(_) { fallback(); }
+  function fallback(){
+    const target = btn.dataset.target ? document.getElementById(btn.dataset.target) : btn.previousElementSibling;
+    if (target) { const r = document.createRange(); r.selectNodeContents(target); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = "Selected, press Ctrl+C"; }
+  }
+}
+
+/* dates: no past pickup; return after pickup */
+const today = new Date(); today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+const iso = today.toISOString().slice(0,10);
+const start = document.getElementById("start"), end = document.getElementById("end");
+start.min = iso; end.min = iso;
+start.addEventListener("change", () => { end.min = start.value || iso; if (end.value && end.value < start.value) end.value = ""; });
+
+/* form */
+const form = document.getElementById("inq-form");
+const FIELDS = {
+  name: v => v.trim() ? "" : "Enter your name.",
+  email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? "" : "Enter an email like you@example.com.",
+  car: v => v ? "" : "Choose a car, or pick “Not sure yet”.",
+  start: v => v ? "" : "Choose a pickup date.",
+  end: v => !v ? "Choose a return date." : (start.value && v < start.value ? "Return date must be after pickup." : "")
+};
+function check(id){
+  const el = document.getElementById(id), msg = FIELDS[id](el.value);
+  document.getElementById(id + "-err").textContent = msg;
+  el.closest(".f").classList.toggle("bad", !!msg);
+  el.setAttribute("aria-invalid", msg ? "true" : "false");
+  return !msg;
+}
+Object.keys(FIELDS).forEach(id => document.getElementById(id).addEventListener("blur", () => { if (document.getElementById(id).value) check(id); }));
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  const bad = Object.keys(FIELDS).filter(id => !check(id));
+  if (bad.length) { document.getElementById(bad[0]).focus(); return; }
+  const v = id => document.getElementById(id).value.trim();
+  const car = FLEET.find(c => c.id === v("car"));
+  const fmt = d => new Date(d + "T12:00").toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric",year:"numeric"});
+  const body = [
+    "Hi Coastline Exotics,", "",
+    "I'd like pricing for the following rental:", "",
+    "Vehicle: " + (car ? label(car) : "Not sure yet, please recommend"),
+    "Dates: " + fmt(v("start")) + " to " + fmt(v("end")),
+    v("where") ? "Pickup location: " + v("where") : null,
+    v("occasion") ? "Occasion: " + v("occasion") : null,
+    v("msg") ? "\nNotes: " + v("msg") : null,
+    "", "Name: " + v("name"), "Email: " + v("email"), v("phone") ? "Phone: " + v("phone") : null
+  ].filter(x => x !== null).join("\n");
+  const subject = "Rental inquiry: " + (car ? car.make + " " + car.model : "help me choose") + ", " + v("start");
+  const mailto = "mailto:coastlineexoticsca@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+
+  const box = document.createElement("div");
+  box.className = "done"; box.setAttribute("role","status"); box.tabIndex = -1;
+  box.innerHTML = `<h3>Your inquiry is <em>ready to send.</em></h3>
+    <p>Open it in your email app, or copy it and send it to <b style="font-weight:500">coastlineexoticsca@gmail.com</b>.</p>
+    <pre id="inq-text"></pre>
+    <div class="row">
+      <a class="btn btn-solid" href="${mailto}">Open in email</a>
+      <button class="btn btn-ghost" type="button" data-copy="" data-target="inq-text" id="copy-inq">Copy inquiry</button>
+      <button class="btn btn-ghost" type="button" id="edit-inq">Edit details</button>
+    </div>`;
+  box.querySelector("#inq-text").textContent = "To: coastlineexoticsca@gmail.com\nSubject: " + subject + "\n\n" + body;
+  box.querySelector("#copy-inq").dataset.copy = "Subject: " + subject + "\n\n" + body;
+  [...form.children].forEach(ch => ch.hidden = true);
+  form.appendChild(box); box.focus();
+  box.querySelector("#edit-inq").addEventListener("click", () => { box.remove(); [...form.children].forEach(ch => ch.hidden = false); document.getElementById("name").focus(); });
+});
+
+/* hero: slow shimmer on the water below the horizon */
+(function(){
+  const cv = document.getElementById("sea"), ctx = cv.getContext("2d");
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let w, h, lines = [];
+  function size(){
+    const r = cv.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
+    w = r.width; h = r.height; cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    lines = Array.from({length: Math.round(w / 9)}, () => ({
+      y: .62 + Math.pow(Math.random(), 1.6) * .38, x: Math.random(), len: 10 + Math.random() * 60, p: Math.random() * 6.28, s: .4 + Math.random() * .9
+    }));
+  }
+  function draw(t){
+    ctx.clearRect(0,0,w,h);
+    for (const l of lines){
+      const depth = (l.y - .61) / .39;               // 0 at horizon, 1 at bottom
+      const nearSun = Math.exp(-Math.pow((l.x - .72) / .16, 2));
+      const a = (.08 + .5 * nearSun) * (1 - depth * .55) * (.5 + .5 * Math.sin(t * .0012 * l.s + l.p));
+      const x = (l.x * w + Math.sin(t * .0003 * l.s + l.p) * 8);
+      ctx.strokeStyle = nearSun > .25 ? `rgba(226,190,120,${a})` : `rgba(43,181,232,${a * .55})`;
+      ctx.lineWidth = .6 + depth * 1.1;
+      ctx.beginPath(); ctx.moveTo(x - l.len * (.4 + depth) / 2, l.y * h); ctx.lineTo(x + l.len * (.4 + depth) / 2, l.y * h); ctx.stroke();
+    }
+    if (!still) requestAnimationFrame(draw);
+  }
+  size(); addEventListener("resize", size); requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
