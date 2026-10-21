@@ -29,4 +29,4 @@ The inquiry form dropdown and the footer fleet list update automatically.
 
 ## Inquiry form
 
-The form checks the visitor's details, then prepares an email to coastlineexoticsca@gmail.com that opens in their email app, with a copy option as a backup. To receive inquiries directly without the visitor's email app, connect a form service such as Formspree or Netlify Forms.
+The form checks the visitor's details, then sends the inquiry through Formspree (form `xljgywkl`) to the email on your Formspree account. The endpoint is set in `index.html` as `FORMSPREE`. If a submission fails, the visitor sees an error with a direct link to coastlineexoticsca@gmail.com. A hidden `_gotcha` field catches spam bots.
